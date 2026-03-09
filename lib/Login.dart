@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future login() async {
 
-    var url = Uri.parse("http://192.168.1.108/flutter_week9/php_api/login.php");
+    var url = Uri.parse("http://localhost/flutter_login/php_api/login.php");
 
     var response = await http.post(url,body:{
       "username":username.text,
