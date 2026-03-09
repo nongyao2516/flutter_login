@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+
+  final String name;
+  final String lname;
+
+  const HomePage({super.key, required this.name, required this.lname});
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+
       appBar: AppBar(
         title: const Text("Home Page"),
 
@@ -14,19 +20,57 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
+
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
+                MaterialPageRoute(
+                  builder: (context) => const LoginPage(),
+                ),
                 (route) => false,
               );
+
             },
           ),
         ],
       ),
 
-      body: const Center(
-        child: Text("Login Success", style: TextStyle(fontSize: 22)),
+      body: Center(
+
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+
+          children: [
+
+            const Icon(
+              Icons.verified_user,
+              size: 80,
+              color: Colors.green,
+            ),
+
+            const SizedBox(height: 20),
+
+            Text(
+              "Welcome $name : $lname",
+              style: const TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            const Text(
+              "Login Success",
+              style: TextStyle(fontSize: 18),
+            ),
+
+          ],
+        ),
+
       ),
+
     );
+
   }
+
 }

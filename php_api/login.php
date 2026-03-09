@@ -16,13 +16,15 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 if($user){
 
  echo json_encode([
- "status"=>"success"
+  "status"=>"success",
+  "username"=>$user["username"],
+  "name"=>$user["name"] ?? ""
  ]);
 
 }else{
 
  echo json_encode([
- "status"=>"error"
+  "status"=>"error"
  ]);
 
 }

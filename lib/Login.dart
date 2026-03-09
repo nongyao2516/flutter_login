@@ -13,7 +13,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
-  bool isPasswordHidden = true; // ✅ เพิ่มบรรทัดนี้
+
+  bool isPasswordHidden = true;
 
   Future login() async {
     var url = Uri.parse("http://localhost/flutter_login/php_api/login.php");
@@ -28,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
     if (data["status"] == "success") {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => HomePage(name: data["name"], lname: data["username"])),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -72,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
               decoration: InputDecoration(
                 labelText: "Password",
                 border: const OutlineInputBorder(),
+
                 suffixIcon: IconButton(
                   icon: Icon(
                     isPasswordHidden ? Icons.visibility : Icons.visibility_off,
@@ -93,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
 
               child: ElevatedButton(
                 onPressed: login,
-                child: const Text("LOGIN"),
+                child: const Text("LOGIN", style: TextStyle(fontSize: 18)),
               ),
             ),
           ],
