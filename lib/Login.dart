@@ -11,102 +11,94 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
+  bool isPasswordHidden = true; // ✅ เพิ่มบรรทัดนี้
 
   Future login() async {
-
     var url = Uri.parse("http://localhost/flutter_login/php_api/login.php");
 
-    var response = await http.post(url,body:{
-      "username":username.text,
-      "password":password.text
-    });
+    var response = await http.post(
+      url,
+      body: {"username": username.text, "password": password.text},
+    );
 
     var data = json.decode(response.body);
 
-    if(data["status"]=="success"){
-
+    if (data["status"] == "success") {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder:(context)=>const HomePage()
-        )
+        MaterialPageRoute(builder: (context) => const HomePage()),
       );
-
-    }else{
-
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Username หรือ Password ไม่ถูกต้อง"),
           backgroundColor: Colors.red,
-        )
+        ),
       );
-
     }
-
   }
 
   @override
-  Widget build(BuildContext context){
-
+  Widget build(BuildContext context) {
     return Scaffold(
-
-      appBar: AppBar(
-        title: const Text("Login System"),
-      ),
+      appBar: AppBar(title: const Text("Login System")),
 
       body: Padding(
         padding: const EdgeInsets.all(20),
 
         child: Column(
-
           mainAxisAlignment: MainAxisAlignment.center,
 
           children: [
+            const Icon(Icons.account_circle, size: 100),
 
-            const Icon(Icons.account_circle,size:100),
-
-            const SizedBox(height:30),
+            const SizedBox(height: 30),
 
             TextField(
               controller: username,
               decoration: const InputDecoration(
-                labelText:"Username",
-                border: OutlineInputBorder()
+                labelText: "Username",
+                border: OutlineInputBorder(),
               ),
             ),
 
-            const SizedBox(height:20),
+            const SizedBox(height: 20),
 
             TextField(
               controller: password,
-              obscureText:true,
-              decoration: const InputDecoration(
-                labelText:"Password",
-                border: OutlineInputBorder()
+              obscureText: isPasswordHidden,
+              decoration: InputDecoration(
+                labelText: "Password",
+                border: const OutlineInputBorder(),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    isPasswordHidden ? Icons.visibility : Icons.visibility_off,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isPasswordHidden = !isPasswordHidden;
+                    });
+                  },
+                ),
               ),
             ),
 
-            const SizedBox(height:30),
+            const SizedBox(height: 30),
 
             SizedBox(
-              width:double.infinity,
-              height:50,
+              width: double.infinity,
+              height: 50,
 
-              child:ElevatedButton(
+              child: ElevatedButton(
                 onPressed: login,
-                child:const Text("LOGIN"),
-              )
-            )
-
+                child: const Text("LOGIN"),
+              ),
+            ),
           ],
-
         ),
       ),
     );
-
   }
-
 }
