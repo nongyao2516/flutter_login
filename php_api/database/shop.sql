@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2026 at 06:03 AM
+-- Generation Time: Mar 09, 2026 at 07:47 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.1.25
 
@@ -84,6 +84,7 @@ INSERT INTO `travel` (`id`, `name`, `description`, `image`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -92,9 +93,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`) VALUES
-(1, 'admin', '1234'),
-(2, 'user', '1234');
+INSERT INTO `users` (`id`, `name`, `username`, `password`) VALUES
+(1, 'มะลิรัตน์ เกิดทอง', 'admin', '1234'),
+(2, 'มานะ ดีใจ', 'user', '1234');
 
 --
 -- Indexes for dumped tables
